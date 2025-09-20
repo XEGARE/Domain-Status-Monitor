@@ -1,0 +1,17 @@
+{
+    "appDescription": {
+        "message": "Monitors network requests and checks the availability of domains for the active tab"
+    },
+    "availableDomains": {
+        "message": "Available"
+    },
+    "unavailableDomains": {
+        "message": "Unavailable"
+    },
+    "reloadPage": {
+        "message": "Restart and clear domains"
+    },
+    "emptyDomains": {
+        "message": "There are no domains yet. Click the button above to check"
+    }
+}
