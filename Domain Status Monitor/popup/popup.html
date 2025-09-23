@@ -41,6 +41,11 @@
             .image-btn svg {
                 vertical-align: middle;
             }
+            .title-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
         </style>
     </head>
     <body>
@@ -76,10 +81,16 @@
             </svg>
         </button>
 
-        <h3 id="availableTitle"></h3>
+        <div class="title-row">
+            <h3 id="availableTitle"></h3>
+            <button id="copyAvailableBtn" class="image-btn" title=""></button>
+        </div>
         <ul id="successList" class="domain-list"></ul>
 
-        <h3 id="unavailableTitle"></h3>
+        <div class="title-row">
+            <h3 id="unavailableTitle"></h3>
+            <button id="copyUnavailableBtn" class="image-btn" title=""></button>
+        </div>
         <ul id="errorList" class="domain-list"></ul>
 
         <script src="popup.js"></script>

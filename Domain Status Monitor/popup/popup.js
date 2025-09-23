@@ -4,8 +4,33 @@ const reloadBtn = document.getElementById("reloadBtn")
 const availableTitle = document.getElementById("availableTitle")
 const unavailableTitle = document.getElementById("unavailableTitle")
 
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text)
+const copyAvailableBtn = document.getElementById("copyAvailableBtn")
+const copyUnavailableBtn = document.getElementById("copyUnavailableBtn")
+
+const copySVG = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2"/>
+        <path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2"/>
+    </svg>
+`
+
+const doneSVG = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+         viewBox="0 0 24 24">
+        <path fill="currentColor"
+              d="M9 16.2L4.8 12l-1.4 1.4L9 19L21 7l-1.4-1.4z"/>
+    </svg>
+`
+
+function handleCopyClick(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+        btn.innerHTML = doneSVG
+        setTimeout(() => {
+            btn.innerHTML = copySVG
+        }, 1500)
+    })
 }
 
 function createListItem(domain, isSuccess) {
@@ -15,26 +40,10 @@ function createListItem(domain, isSuccess) {
     const btn = document.createElement("button")
     btn.className = "image-btn"
 
-    const copySVG = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-            <path d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.602-1.43L16.083 2.57A2 2 0 0 0 14.685 2H10a2 2 0 0 0-2 2"/>
-            <path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2"/>
-        </svg>
-    `
-    const doneSVG = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M9 16.2L4.8 12l-1.4 1.4L9 19L21 7l-1.4-1.4z"/>
-        </svg>
-    `
-
     btn.innerHTML = copySVG
 
     btn.onclick = () => {
-        navigator.clipboard.writeText(domain)
-        btn.innerHTML = doneSVG
-        setTimeout(() => {
-            btn.innerHTML = copySVG
-        }, 1500)
+        handleCopyClick(btn, domain)
     }
 
     li.textContent = domain + " "
@@ -57,9 +66,13 @@ function renderDomains(domains) {
     )
 
     availableTitle.style.display = successDomains.length > 0 ? "block" : "none"
+    copyAvailableBtn.style.display =
+        successDomains.length > 0 ? "block" : "none"
     successList.style.display = successDomains.length > 0 ? "block" : "none"
 
     unavailableTitle.style.display = errorDomains.length > 0 ? "block" : "none"
+    copyUnavailableBtn.style.display =
+        errorDomains.length > 0 ? "block" : "none"
     errorList.style.display = errorDomains.length > 0 ? "block" : "none"
 
     if (successDomains.length === 0 && errorDomains.length === 0) {
@@ -76,6 +89,27 @@ function renderDomains(domains) {
     } else {
         const hint = document.getElementById("noDomainsHint")
         if (hint) hint.style.display = "none"
+
+        copyAvailableBtn.innerHTML = copySVG
+        copyUnavailableBtn.innerHTML = copySVG
+
+        copyAvailableBtn.onclick = () => {
+            const domains = Array.from(successList.querySelectorAll("li")).map(
+                (li) => li.firstChild.textContent.trim()
+            )
+            if (domains.length > 0) {
+                handleCopyClick(copyAvailableBtn, domains.join("\n"))
+            }
+        }
+
+        copyUnavailableBtn.onclick = () => {
+            const domains = Array.from(errorList.querySelectorAll("li")).map(
+                (li) => li.firstChild.textContent.trim()
+            )
+            if (domains.length > 0) {
+                handleCopyClick(copyUnavailableBtn, domains.join("\n"))
+            }
+        }
     }
 }
 
