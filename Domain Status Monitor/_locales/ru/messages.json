@@ -2,11 +2,20 @@
     "appDescription": {
         "message": "Отслеживает сетевые запросы и проверяет доступность доменов для активной вкладки"
     },
+    "tabDomains": {
+        "message": "Домены"
+    },
+    "tabRoutes": {
+        "message": "Маршруты"
+    },
     "availableDomains": {
         "message": "Доступные"
     },
     "unavailableDomains": {
         "message": "Недоступные"
+    },
+    "staticRoutes": {
+        "message": "Статические маршруты"
     },
     "reloadPage": {
         "message": "Перезагрузить и очистить домены"

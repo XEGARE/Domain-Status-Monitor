@@ -2,11 +2,20 @@
     "appDescription": {
         "message": "Monitors network requests and checks the availability of domains for the active tab"
     },
+    "tabDomains": {
+        "message": "Domains"
+    },
+    "tabRoutes": {
+        "message": "Routes"
+    },
     "availableDomains": {
         "message": "Available"
     },
     "unavailableDomains": {
         "message": "Unavailable"
+    },
+    "staticRoutes": {
+        "message": "Static routes"
     },
     "reloadPage": {
         "message": "Restart and clear domains"

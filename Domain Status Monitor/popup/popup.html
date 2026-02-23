@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
     <head>
         <meta charset="UTF-8" />
@@ -6,41 +6,151 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                min-width: 300px;
+                min-width: 450px;
                 padding: 10px;
             }
+
             h3 {
                 margin-bottom: 5px;
             }
+
+            .tabs {
+                display: flex;
+                gap: 5px;
+                margin-bottom: 10px;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 5px;
+            }
+
+            .tab-btn {
+                padding: 8px 16px;
+                background: #f0f0f0;
+                border: none;
+                border-radius: 4px 4px 0 0;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+            .tab-btn.active {
+                background: #4285f4;
+                color: white;
+            }
+
+            .tab-content {
+                display: none;
+            }
+
+            .tab-content.active {
+                display: block;
+            }
+
             .domain-list {
                 list-style: none;
                 padding: 0;
-                max-height: 150px;
                 overflow-y: auto;
             }
+
+            .domains-list {
+                max-height: 200px;
+            }
+
             .domain-item {
                 display: flex;
-                justify-content: space-between;
+                align-items: flex-start;
+                gap: 5px;
                 margin-bottom: 5px;
             }
+
+            .domain-item .image-btn {
+                margin-top: 2px;
+            }
+
+            .domain-item .method-badge {
+                margin-top: 2px;
+            }
+
             .success {
                 color: green;
             }
+
             .error {
                 color: red;
             }
+
+            .method-badge {
+                display: inline-block;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-size: 11px;
+                font-weight: bold;
+                text-transform: uppercase;
+                min-width: 45px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+
+            .method-GET {
+                background-color: #61affe;
+                color: white;
+            }
+
+            .method-POST {
+                background-color: #49cc90;
+                color: white;
+            }
+
+            .method-PUT {
+                background-color: #fca130;
+                color: white;
+            }
+
+            .method-DELETE {
+                background-color: #f93e3e;
+                color: white;
+            }
+
+            .method-PATCH {
+                background-color: #50e3c2;
+                color: white;
+            }
+
+            .method-HEAD {
+                background-color: #9013fe;
+                color: white;
+            }
+
+            .method-OPTIONS {
+                background-color: #0d5aa7;
+                color: white;
+            }
+
+            .method-UNKNOWN {
+                background-color: #999;
+                color: white;
+            }
+
+            .url-text {
+                flex: 1;
+                overflow-wrap: break-word;
+                word-break: break-all;
+                line-height: 1.3;
+            }
+
             button {
                 margin-left: 5px;
             }
+
             .image-btn {
                 background: none;
                 border: none;
                 cursor: pointer;
                 padding: 2px;
             }
+
             .image-btn svg {
                 vertical-align: middle;
             }
+
             .title-row {
                 display: flex;
                 justify-content: space-between;
@@ -48,6 +158,7 @@
             }
         </style>
     </head>
+
     <body>
         <button id="reloadBtn" class="image-btn" title="">
             <svg
@@ -81,17 +192,40 @@
             </svg>
         </button>
 
-        <div class="title-row">
-            <h3 id="availableTitle"></h3>
-            <button id="copyAvailableBtn" class="image-btn" title=""></button>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="domains"></button>
+            <button class="tab-btn" data-tab="routes"></button>
         </div>
-        <ul id="successList" class="domain-list"></ul>
 
-        <div class="title-row">
-            <h3 id="unavailableTitle"></h3>
-            <button id="copyUnavailableBtn" class="image-btn" title=""></button>
+        <div id="domainsTab" class="tab-content active">
+            <div class="title-row">
+                <h3 id="availableTitle"></h3>
+                <button
+                    id="copyAvailableBtn"
+                    class="image-btn"
+                    title=""
+                ></button>
+            </div>
+            <ul id="successList" class="domain-list domains-list"></ul>
+
+            <div class="title-row">
+                <h3 id="unavailableTitle"></h3>
+                <button
+                    id="copyUnavailableBtn"
+                    class="image-btn"
+                    title=""
+                ></button>
+            </div>
+            <ul id="errorList" class="domain-list domains-list"></ul>
         </div>
-        <ul id="errorList" class="domain-list"></ul>
+
+        <div id="routesTab" class="tab-content">
+            <div class="title-row">
+                <h3 id="routesTitle"></h3>
+                <button id="copyRoutesBtn" class="image-btn" title=""></button>
+            </div>
+            <ul id="routesList" class="domain-list"></ul>
+        </div>
 
         <script src="popup.js"></script>
     </body>
