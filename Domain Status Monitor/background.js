@@ -123,6 +123,19 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     } else if (msg.action === "clearTabDomains") {
         clearTabData(tabId)
         sendResponse({ ok: true })
+    } else if (msg.action === "clearAllExtensionData") {
+        for (const tabId in saveTimers) {
+            clearTimeout(saveTimers[tabId])
+            delete saveTimers[tabId]
+        }
+
+        tabDomains = {}
+
+        chrome.storage.local.clear(() => {
+            sendResponse({ ok: true })
+        })
+
+        return true
     }
 })
 

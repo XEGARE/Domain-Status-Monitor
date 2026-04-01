@@ -20,6 +20,9 @@
     "reloadPage": {
         "message": "Restart and clear domains"
     },
+    "resetStorage": {
+        "message": "Clear storage data"
+    },
     "emptyDomains": {
         "message": "There are no domains yet. Click the button above to check"
     }

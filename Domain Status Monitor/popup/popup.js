@@ -2,6 +2,7 @@ const successList = document.getElementById("successList")
 const errorList = document.getElementById("errorList")
 const routesList = document.getElementById("routesList")
 const reloadBtn = document.getElementById("reloadBtn")
+const resetStorageBtn = document.getElementById("resetStorageBtn")
 const availableTitle = document.getElementById("availableTitle")
 const unavailableTitle = document.getElementById("unavailableTitle")
 const routesTitle = document.getElementById("routesTitle")
@@ -150,9 +151,11 @@ function renderDomains(domains) {
         if (!hint) {
             hint = document.createElement("p")
             hint.id = hintId
+            hint.className = "empty-hint"
             hint.style.fontStyle = "italic"
             hint.textContent = chrome.i18n.getMessage("emptyDomains")
-            document.body.insertBefore(hint, reloadBtn.nextSibling)
+            const topBar = document.querySelector(".top-bar")
+            topBar.insertAdjacentElement("afterend", hint)
         }
         hint.style.display = "block"
     } else {
@@ -220,6 +223,20 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             chrome.tabs.reload(tabId)
         })
     }
+
+    resetStorageBtn.onclick = () => {
+        chrome.runtime.sendMessage(
+            { action: "clearAllExtensionData" },
+            (response) => {
+                if (response?.ok) {
+                    successList.innerHTML = ""
+                    errorList.innerHTML = ""
+                    routesList.innerHTML = ""
+                    location.reload()
+                }
+            },
+        )
+    }
 })
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -228,6 +245,8 @@ document.addEventListener("DOMContentLoaded", () => {
     routesTitle.textContent = chrome.i18n.getMessage("staticRoutes")
 
     reloadBtn.title = chrome.i18n.getMessage("reloadPage")
+
+    resetStorageBtn.title = chrome.i18n.getMessage("resetStorage")
 
     const tabBtns = document.querySelectorAll(".tab-btn")
     tabBtns[0].textContent = chrome.i18n.getMessage("tabDomains")
