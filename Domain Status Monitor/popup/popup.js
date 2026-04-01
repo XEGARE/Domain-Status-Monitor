@@ -195,10 +195,8 @@ function renderDomains(domains) {
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const tabId = tabs[0].id
 
-    chrome.storage.local.get([`tab_${tabId}`], (result) => {
-        renderDomains(
-            result[`tab_${tabId}`] || { success: [], error: [], routes: [] },
-        )
+    chrome.runtime.sendMessage({ action: "getTabDomains", tabId }, (data) => {
+        renderDomains(data || { success: [], error: [], routes: [] })
     })
 
     chrome.storage.onChanged.addListener((changes, area) => {
@@ -214,13 +212,13 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     })
 
     reloadBtn.onclick = () => {
-        chrome.storage.local.remove(`tab_${tabId}`)
         successList.innerHTML = ""
         errorList.innerHTML = ""
         routesList.innerHTML = ""
-        chrome.runtime.sendMessage({ action: "clearTabDomains", tabId })
 
-        chrome.tabs.reload(tabId)
+        chrome.runtime.sendMessage({ action: "clearTabDomains", tabId }, () => {
+            chrome.tabs.reload(tabId)
+        })
     }
 })
 
