@@ -1,5 +1,21 @@
 let tabDomains = {}
 
+function restoreStateFromStorage() {
+    chrome.storage.local.get(null, (items) => {
+        for (const key in items) {
+            if (key.startsWith('tab_')) {
+                const tabId = parseInt(key.replace('tab_', ''))
+                const data = items[key]
+                tabDomains[tabId] = {
+                    success: new Set(data.success || []),
+                    error: new Set(data.error || []),
+                    routes: data.routes || []
+                }
+            }
+        }
+    })
+}
+
 function updateDomain(tabId, domain, url, method, isSuccess) {
     if (!tabDomains[tabId])
         tabDomains[tabId] = { success: new Set(), error: new Set(), routes: [] }
@@ -59,6 +75,7 @@ chrome.webRequest.onErrorOccurred.addListener(
 
 chrome.tabs.onRemoved.addListener((tabId) => {
     delete tabDomains[tabId]
+    chrome.storage.local.remove(`tab_${tabId}`)
 })
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
@@ -79,4 +96,14 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         tabDomains[tabId] = { success: new Set(), error: new Set(), routes: [] }
         chrome.storage.local.remove(`tab_${tabId}`)
     }
+})
+
+restoreStateFromStorage()
+
+chrome.runtime.onStartup.addListener(() => {
+    restoreStateFromStorage()
+})
+
+chrome.runtime.onInstalled.addListener(() => {
+    restoreStateFromStorage()
 })
