@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Package extension",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-NonInteractive",
+                "-Command",
+                "Compress-Archive -Path 'Domain Status Monitor/*' -DestinationPath 'Domain Status Monitor.zip' -Force -ErrorAction Stop; Write-Host ('Archive created: ' + (Resolve-Path -LiteralPath 'Domain Status Monitor.zip').Path) -ForegroundColor Green"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "clear": true,
+                "echo": false,
+                "showReuseMessage": false
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
