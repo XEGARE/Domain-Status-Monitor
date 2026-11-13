@@ -220,7 +220,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         routesList.innerHTML = ""
 
         chrome.runtime.sendMessage({ action: "clearTabDomains", tabId }, () => {
-            chrome.tabs.reload(tabId)
+            chrome.tabs.reload(tabId, { bypassCache: true })
         })
     }
 

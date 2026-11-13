@@ -121,8 +121,11 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
             routes: data.routes,
         })
     } else if (msg.action === "clearTabDomains") {
-        clearTabData(tabId)
-        sendResponse({ ok: true })
+        clearTabData(tabId, () => {
+            sendResponse({ ok: true })
+        })
+
+        return true
     } else if (msg.action === "clearAllExtensionData") {
         for (const tabId in saveTimers) {
             clearTimeout(saveTimers[tabId])
@@ -139,11 +142,11 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     }
 })
 
-function clearTabData(tabId) {
+function clearTabData(tabId, callback) {
     delete tabDomains[tabId]
     clearTimeout(saveTimers[tabId])
     delete saveTimers[tabId]
-    chrome.storage.local.remove(`tab_${tabId}`)
+    chrome.storage.local.remove(`tab_${tabId}`, callback)
 }
 
 restoreStateFromStorage()
