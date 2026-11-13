@@ -24,6 +24,48 @@
         "message": "Очистить данные хранилища"
     },
     "emptyDomains": {
-        "message": "Доменов пока нет. Нажмите на кнопку выше для проверки"
+        "message": "Нажмите «Проверить», чтобы собрать домены и запросы этой вкладки."
+    },
+    "emptyTitle": {
+        "message": "Начнём с проверки"
+    },
+    "networkActivity": {
+        "message": "Сетевая активность вкладки"
+    },
+    "currentTab": {
+        "message": "Текущая вкладка"
+    },
+    "checkAgain": {
+        "message": "Проверить"
+    },
+    "appearance": {
+        "message": "Тема оформления"
+    },
+    "themeAuto": {
+        "message": "Авто"
+    },
+    "themeLight": {
+        "message": "Светлая"
+    },
+    "themeDark": {
+        "message": "Тёмная"
+    },
+    "copy": {
+        "message": "Скопировать"
+    },
+    "copyAllDomains": {
+        "message": "Скопировать все домены"
+    },
+    "copyAllRoutes": {
+        "message": "Скопировать все маршруты"
+    },
+    "requestRoutes": {
+        "message": "Маршруты запросов"
+    },
+    "tabDataOnly": {
+        "message": "Данные текущей вкладки"
+    },
+    "resetData": {
+        "message": "Сбросить данные"
     }
 }

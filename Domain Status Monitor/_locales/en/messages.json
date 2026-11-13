@@ -24,6 +24,48 @@
         "message": "Clear storage data"
     },
     "emptyDomains": {
-        "message": "There are no domains yet. Click the button above to check"
+        "message": "Click Check to collect the domains and requests for this tab."
+    },
+    "emptyTitle": {
+        "message": "Ready when you are"
+    },
+    "networkActivity": {
+        "message": "Your tab's network activity"
+    },
+    "currentTab": {
+        "message": "Current tab"
+    },
+    "checkAgain": {
+        "message": "Check"
+    },
+    "appearance": {
+        "message": "Appearance"
+    },
+    "themeAuto": {
+        "message": "Auto"
+    },
+    "themeLight": {
+        "message": "Light"
+    },
+    "themeDark": {
+        "message": "Dark"
+    },
+    "copy": {
+        "message": "Copy"
+    },
+    "copyAllDomains": {
+        "message": "Copy all domains"
+    },
+    "copyAllRoutes": {
+        "message": "Copy all routes"
+    },
+    "requestRoutes": {
+        "message": "Request routes"
+    },
+    "tabDataOnly": {
+        "message": "Data for the current tab"
+    },
+    "resetData": {
+        "message": "Reset data"
     }
 }
