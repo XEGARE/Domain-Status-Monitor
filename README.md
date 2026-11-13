@@ -1,3 +1,5 @@
+![Domain Status Monitor](screenshots/preview.png)
+
 # Domain Status Monitor
 
 | Browser | Install from ... |
